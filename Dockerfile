@@ -1,4 +1,6 @@
-FROM node:12
+FROM node:12.19-stretch-slim
+
+WORKDIR /usr/src/app
 
 # Add package file
 COPY package*.json ./
@@ -15,4 +17,4 @@ RUN npm run build
 # Expose port 3000
 EXPOSE 3000
 
-CMD npm run start
+CMD ["node","dist/server.js"]

@@ -1,5 +1,4 @@
 import { Request } from 'jest-express/lib/request';
-import Joi from '@hapi/joi';
 import requestMiddleware from '../../src/middleware/request-middleware';
 
 let request: any;
@@ -29,7 +28,7 @@ describe('Error Handling Middleware', () => {
     next.mockClear();
   });
 
-  test('API handles response behaviour when no error thrown', async () => {
+  test('Route handles response behaviour when no error thrown', async () => {
     const res: any = {
       send: jest.fn()
     };
@@ -57,21 +56,5 @@ describe('Error Handling Middleware', () => {
 
     expect(next).toHaveBeenCalledTimes(1);
     expect(next).toHaveBeenCalledWith(err);
-  });
-
-  test('Handover request to express error handler on error', async () => {
-    const sampleRoute = async (req?: any, res?: any, nextHandler?: any) => {
-      res.send('Body is ok');
-    };
-
-    const bodySchema = Joi.object().keys({
-      stringValue: Joi.string()
-    });
-
-
-    const wrappedRoute = requestMiddleware(sampleRoute, { validation: { body: bodySchema } });
-    await wrappedRoute(badRequest, null, next);
-
-    expect(next).toHaveBeenCalledTimes(1);
   });
 });

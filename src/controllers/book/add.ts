@@ -1,12 +1,6 @@
 import { RequestHandler } from 'express';
-import Joi from '@hapi/joi';
 import requestMiddleware from '../../middleware/request-middleware';
 import Book from '../../models/Book';
-
-export const addBookSchema = Joi.object().keys({
-  name: Joi.string().required(),
-  author: Joi.string().required()
-});
 
 const add: RequestHandler = async (req, res) => {
   const { name, author } = req.body;
@@ -20,4 +14,4 @@ const add: RequestHandler = async (req, res) => {
   });
 };
 
-export default requestMiddleware(add, { validation: { body: addBookSchema } });
+export default requestMiddleware(add);
