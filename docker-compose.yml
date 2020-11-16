@@ -1,19 +1,23 @@
 version: '3'
 
 services:
-  api-server:
+  web:
     build:
       context: .
-    container_name: api-server
-    image: api-server
+    command: npm run dev
     restart: unless-stopped
+    env_file: .env.default
     volumes:
       - ./logs:/logs
-    networks:
-      - app-network
     ports:
       - '3000:3000'
 
-networks:
-  app-network:
-    driver: bridge
+  mongo:
+    image: mongo:4.2
+    restart: always
+    env_file: .env.default
+    volumes:
+      - ./data/:/data/db/
+      - ./scripts/mongo-initdb/:/docker-entrypoint-initdb.d/
+    ports:
+      - "27017:27017"
