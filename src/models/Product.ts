@@ -13,7 +13,7 @@ export interface IProduct extends Document {
 interface IProductModel extends Model<IProduct> { }
 
 const schema = new Schema({
-  id: { type: Number, required: true },
+  id: { type: Number, required: true, unique: true },
   brand: { type: String, required: true },
   description: { type: String, required: true },
   image: { type: String, required: true },

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Walmart - Palindrome products promotion</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+  <header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container d-flex justify-content-between">
+        <span class="navbar-brand d-flex align-items-center"><strong>Walmart - Palindrome products promotion</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <main role="main">
+
+    <div class="jumbotron">
+      <div class="container ">
+        <div class="row justify-content-center">
+          <form method="GET">
+            <div class="input-group">
+              <input type="text" class="form-control form-control-lg" placeholder="Search for products..." name="search">
+              <div class="input-group-append">
+                <button class="btn btn-primary btn-lg" type="submit">Go</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <% if (search) { %>
+        <div class="row justify-content-center">
+          <p class="lead mt-4 mb-0 text-muted">Showing results for: <%= search %></p>
+        </div>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="py-5">
+      <div class="container">
+
+        <div class="row">
+
+          <% products.forEach(function(product) { %>
+          <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+              <img class="card-img-top" src="http://<%= product.image %>" alt="<%= product.brand %>">
+              <div class="card-body text-center">
+                <p class="card-text">
+                  <strong><%= product.brand %></strong> <%= product.description %>
+                </p>
+                <% if (product.discount) { %>
+                <p class="card-text font-weight-bold">
+                  <h4><%= formatCurrency(product.discount) %> <span class="badge badge-danger">50%</span></h4>
+                </p>
+                <p class="card-text text-muted">
+                  <del><%= formatCurrency(product.price) %></del>
+                </p>
+                <% } else { %>
+                <p>
+                  <h4><%= formatCurrency(product.price) %></h4>
+                </p>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+</body>
+
+</html>
