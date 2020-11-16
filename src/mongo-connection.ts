@@ -56,7 +56,7 @@ export default class MongoConnection {
   /** Close mongo connection */
   public close(onClosed: (err: any) => void) {
     logger.log({
-      level: 'info',
+      level: 'debug',
       message: 'Closing the MongoDB connection'
     });
     // noinspection JSIgnoredPromiseFromCall
@@ -71,7 +71,7 @@ export default class MongoConnection {
 
   private startConnection = () => {
     logger.log({
-      level: 'info',
+      level: 'debug',
       message: `Connecting to MongoDB at ${this.mongoUrl}`
     });
     mongoose.connect(this.mongoUrl, this.mongoConnectionOptions).catch(() => { });
@@ -82,7 +82,7 @@ export default class MongoConnection {
    */
   private onConnected = () => {
     logger.log({
-      level: 'info',
+      level: 'debug',
       message: `Connected to MongoDB at ${this.mongoUrl}`
     });
     this.isConnectedBefore = true;
@@ -92,7 +92,7 @@ export default class MongoConnection {
   /** Handler called when mongo gets re-connected to the database */
   private onReconnected = () => {
     logger.log({
-      level: 'info',
+      level: 'debug',
       message: 'Reconnected to MongoDB'
     });
     this.onConnectedCallback();
@@ -113,7 +113,7 @@ export default class MongoConnection {
         this.startConnection();
       }, 2000);
       logger.log({
-        level: 'info',
+        level: 'debug',
         message: 'Retrying mongo connection'
       });
     }

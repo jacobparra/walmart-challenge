@@ -4,6 +4,23 @@ import {
   transports
 } from 'winston';
 
+let level;
+let silent;
+switch (process.env.NODE_ENV) {
+  case 'production':
+    level = 'warning';
+    silent = false;
+    break;
+  case 'test':
+    level = 'emerg';
+    silent = true;
+    break;
+  default:
+    level = 'debug';
+    silent = false;
+    break;
+}
+
 const logTransports = [
   new transports.File({
     level: 'error',
@@ -21,7 +38,8 @@ const logTransports = [
     })
   }),
   new transports.Console({
-    level: 'debug',
+    level,
+    silent,
     format: format.prettyPrint()
   })
 ];

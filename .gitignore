@@ -125,3 +125,6 @@ Temporary Items
 
 dist
 data
+
+# jest-mongodb
+globalConfig.json
